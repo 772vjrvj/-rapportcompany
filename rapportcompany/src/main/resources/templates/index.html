@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+    <title>Admin List</title>
+    <!-- JavaScript 파일 포함 -->
+</head>
+<div layout:fragment="content">
+
+    <!-- Hero Start -->
+    <div th:replace="fragments/hero::hero"></div>
+    <!-- Hero End -->
+
+
+    <!-- About Start -->
+    <div th:replace="fragments/about::about"></div>
+    <!-- About End -->
+
+
+    <!-- Service Start -->
+    <div th:replace="fragments/service::service"></div>
+    <!-- Service End -->
+
+
+    <!-- Programs Start -->
+    <div th:replace="fragments/program::program"></div>
+    <!-- Program End -->
+
+
+    <!-- Events Start -->
+    <div th:replace="fragments/event::event"></div>
+    <!-- Events End-->
+
+
+    <!-- Blog Start-->
+    <div th:replace="fragments/blog::blog"></div>
+    <!-- Blog End-->
+
+
+    <!-- Team Start-->
+    <div th:replace="fragments/team::team"></div>
+    <!-- Team End-->
+
+
+    <!-- Testimonial Start -->
+    <div th:replace="fragments/testimonial::testimonial"></div>
+    <!-- Testimonial End -->
+
+</div>
+
+</html>
