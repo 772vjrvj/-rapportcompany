@@ -57,7 +57,7 @@ public class BiznoService {
                 hit++;
 
                 String h5 = safeText(d.selectFirst("h5"));
-                if (!safeEqualsTrim(h5, ownerName)) {
+                if (!isOwnerMatch(ownerName, h5)) {
                     continue;
                 }
 
@@ -223,10 +223,10 @@ public class BiznoService {
         return el.text().trim();
     }
 
-    private boolean safeEqualsTrim(String a, String b) {
-        String aa = a == null ? "" : a.trim();
-        String bb = b == null ? "" : b.trim();
-        return aa.equals(bb);
+    private boolean isOwnerMatch(String inputOwner, String scrapedOwner) {
+        String in = inputOwner == null ? "" : inputOwner.trim();
+        String sc = scrapedOwner == null ? "" : scrapedOwner.replace("*", "").trim();
+        return !in.isEmpty() && !sc.isEmpty() && in.contains(sc);
     }
 
     private String getUserAgent() {
