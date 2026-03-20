@@ -61,6 +61,26 @@ public class ApiKeyInfoService {
         return biznoService.detail(article);
     }
 
+    public Map<String, Object> searchAndDetail(
+            String requestApiKey,
+            String userId,
+            String companyName,
+            String ownerName,
+            String requestIp
+    ) {
+        ApiKeyInfoEntity apiKeyInfo = getActiveApiKeyInfo();
+
+        Map<String, Object> authResult = validateApiKey(apiKeyInfo, requestApiKey, userId, requestIp, "searchAndDetail");
+        if (authResult != null) {
+            return authResult;
+        }
+
+        log.info("[ApiKeyInfoService.searchAndDetail] API_KEY 검증 성공. serverId={}, ip={}, userId={}, companyName={}, ownerName={}",
+                apiKeyInfo.getServerId(), requestIp, safe(userId), companyName, ownerName);
+
+        return biznoService.searchAndDetail(companyName, ownerName);
+    }
+
     public Map<String, Object> saveApiKeyInfo(ApiKeyInfoDto apiKeyInfoDto) {
         Map<String, Object> result = new LinkedHashMap<>();
 

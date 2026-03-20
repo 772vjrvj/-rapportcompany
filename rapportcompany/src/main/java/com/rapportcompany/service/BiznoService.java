@@ -1,10 +1,12 @@
 package com.rapportcompany.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
@@ -17,151 +19,207 @@ import java.util.Map;
 public class BiznoService {
 
     private static final String BASE_URL = "https://bizno.net";
+    private static final int TIMEOUT_MILLIS = 30000;
+
+    @Value("${bizno.user-agent}")
+    private String userAgent;
+
+    @Value("${bizno.detail-delay-millis:700}")
+    private long detailDelayMillis;
+
+    public Map<String, Object> searchAndDetail(String companyName, String ownerName) {
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("error", 0);
+        result.put("success", false);
+        result.put("companyName", companyName);
+        result.put("ownerName", ownerName);
+
+        try {
+            Connection session = createSession();
+
+            Map<String, Object> searchResult = doSearch(session, companyName, ownerName);
+            result.put("search", searchResult);
+
+            if (!Boolean.TRUE.equals(searchResult.get("success"))) {
+                result.put("error", searchResult.getOrDefault("error", 1));
+                result.put("message", searchResult.getOrDefault("message", "search 실패"));
+                return result;
+            }
+
+            String article = String.valueOf(searchResult.getOrDefault("article", ""));
+            String searchUrl = String.valueOf(searchResult.getOrDefault("url", BASE_URL + "/"));
+
+            if (article.isBlank()) {
+                result.put("error", 1);
+                result.put("message", "article 값이 없습니다.");
+                return result;
+            }
+
+            sleepQuietly(detailDelayMillis);
+
+            Map<String, Object> detailResult = doDetail(session, article, searchUrl);
+            result.put("detail", detailResult);
+
+            if (!Boolean.TRUE.equals(detailResult.get("success"))) {
+                result.put("error", detailResult.getOrDefault("error", 1));
+                result.put("message", detailResult.getOrDefault("message", "detail 실패"));
+                return result;
+            }
+
+            result.put("success", true);
+            result.put("article", article);
+            result.put("data", detailResult.get("data"));
+            result.put("message", "");
+            return result;
+
+        } catch (Exception e) {
+            log.error("[BiznoService.searchAndDetail] error", e);
+            result.put("error", 1);
+            result.put("success", false);
+            result.put("message", (e != null && e.getMessage() != null) ? e.getMessage() : String.valueOf(e));
+            return result;
+        }
+    }
 
     public Map<String, Object> search(String companyName, String ownerName) {
+        try {
+            return doSearch(createSession(), companyName, ownerName);
+        } catch (Exception e) {
+            Map<String, Object> result = new LinkedHashMap<>();
+            result.put("error", 1);
+            result.put("success", false);
+            result.put("companyName", companyName);
+            result.put("ownerName", ownerName);
+            result.put("message", (e != null && e.getMessage() != null) ? e.getMessage() : String.valueOf(e));
+            return result;
+        }
+    }
+
+    public Map<String, Object> detail(String article) {
+        try {
+            return doDetail(createSession(), article, BASE_URL + "/");
+        } catch (Exception e) {
+            Map<String, Object> result = new LinkedHashMap<>();
+            result.put("error", 1);
+            result.put("success", false);
+            result.put("article", article);
+            result.put("message", (e != null && e.getMessage() != null) ? e.getMessage() : String.valueOf(e));
+            return result;
+        }
+    }
+
+    private Connection createSession() {
+        return Jsoup.newSession()
+                .userAgent(userAgent)
+                .timeout(TIMEOUT_MILLIS)
+                .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
+                .header("accept-language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
+                .referrer(BASE_URL + "/");
+    }
+
+    private Map<String, Object> doSearch(Connection session, String companyName, String ownerName) throws Exception {
         Map<String, Object> result = new LinkedHashMap<>();
 
         String normalizedCompanyName = normalizeSearchCompanyName(companyName);
+        String url = BASE_URL + "/?area=&query=" + URLEncoder.encode(normalizedCompanyName, StandardCharsets.UTF_8);
 
         result.put("error", 0);
         result.put("success", false);
         result.put("companyName", companyName);
         result.put("normalizedCompanyName", normalizedCompanyName);
         result.put("ownerName", ownerName);
+        result.put("url", url);
 
-        try {
-            String url = BASE_URL + "/?area=&query=" + URLEncoder.encode(normalizedCompanyName, StandardCharsets.UTF_8);
+        Document doc = session.newRequest(url).get();
+        String html = doc.outerHtml();
 
-            Document doc = Jsoup.connect(url)
-                    .userAgent(getUserAgent())
-                    .header("accept-language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
-                    .header("cache-control", "no-cache")
-                    .header("pragma", "no-cache")
-                    .referrer(BASE_URL + "/")
-                    .timeout(30000)
-                    .get();
-
-            String html = doc.outerHtml();
-            if (isBlockedHtml(html)) {
-                result.put("error", 1);
-                result.put("success", false);
-                result.put("message", "bizno 검색 차단/제한 페이지 감지");
-                result.put("url", url);
-                return result;
-            }
-
-            Elements details = doc.select(".details");
-
-            int hit = 0;
-            for (Element d : details) {
-                hit++;
-
-                String h5 = safeText(d.selectFirst("h5"));
-                if (!isOwnerMatch(ownerName, h5)) {
-                    continue;
-                }
-
-                Element aTag = d.selectFirst("a[href^=/article/]");
-                if (aTag == null) {
-                    continue;
-                }
-
-                String href = aTag.attr("href");
-                if (href == null || href.isBlank()) {
-                    continue;
-                }
-
-                String article = href.replace("/article/", "").trim();
-                String company = safeText(d.selectFirst("h4"));
-
-                result.put("success", true);
-                result.put("article", article);
-                result.put("회사명", company);
-                result.put("detailsCount", hit);
-                result.put("url", url);
-                result.put("message", "");
-                return result;
-            }
-
-            result.put("detailsCount", hit);
-            result.put("article", "");
-            result.put("message", "검색 결과에서 일치 항목을 찾지 못했습니다.");
-            result.put("url", url);
-            return result;
-
-        } catch (Exception e) {
-            log.error("[BiznoService.search] error", e);
+        if (isBlockedHtml(html)) {
             result.put("error", 1);
-            result.put("success", false);
-            result.put("message", e.getMessage());
+            result.put("message", "bizno 검색 차단/제한 페이지 감지");
             return result;
         }
+
+        Elements details = doc.select(".details");
+        int detailsCount = details.size();
+
+        for (Element d : details) {
+            String h5 = safeText(d.selectFirst("h5"));
+            if (!isOwnerMatch(ownerName, h5)) {
+                continue;
+            }
+
+            Element aTag = d.selectFirst("a[href^=/article/]");
+            if (aTag == null) {
+                continue;
+            }
+
+            String href = safeAttr(aTag, "href");
+            if (href.isBlank()) {
+                continue;
+            }
+
+            String article = href.replace("/article/", "").trim();
+            String company = safeText(d.selectFirst("h4"));
+
+            result.put("success", true);
+            result.put("article", article);
+            result.put("회사명", company);
+            result.put("detailsCount", detailsCount);
+            result.put("message", "");
+            return result;
+        }
+
+        result.put("detailsCount", detailsCount);
+        result.put("article", "");
+        result.put("message", "검색 결과에서 일치 항목을 찾지 못했습니다.");
+        return result;
     }
 
-    public Map<String, Object> detail(String article) {
+    private Map<String, Object> doDetail(Connection session, String article, String referrerUrl) throws Exception {
         Map<String, Object> result = new LinkedHashMap<>();
+        String url = BASE_URL + "/article/" + article;
+
         result.put("error", 0);
         result.put("success", false);
         result.put("article", article);
+        result.put("url", url);
 
-        try {
-            String url = BASE_URL + "/article/" + article;
+        Document doc = session.newRequest(url)
+                .referrer(referrerUrl)
+                .get();
 
-            Document doc = Jsoup.connect(url)
-                    .userAgent(getUserAgent())
-                    .header("accept-language", "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7")
-                    .header("cache-control", "no-cache")
-                    .header("pragma", "no-cache")
-                    .referrer(BASE_URL + "/")
-                    .timeout(30000)
-                    .get();
+        String html = doc.outerHtml();
 
-            String html = doc.outerHtml();
-            result.put("url", url);
-
-            if (isBlockedHtml(html)) {
-                result.put("error", 1);
-                result.put("success", false);
-                result.put("message", "bizno 상세 차단/제한 페이지 감지");
-                return result;
-            }
-
-            Element table = doc.selectFirst("table.table_guide01");
-
-            if (table == null) {
-                result.put("message", "상세 테이블(table.table_guide01)을 찾지 못했습니다.");
-                return result;
-            }
-
-            Map<String, String> data = new LinkedHashMap<>();
-            int rowCnt = 0;
-
-            for (Element tr : table.select("tr")) {
-                Element th = tr.selectFirst("th");
-                Element td = tr.selectFirst("td");
-
-                String key = safeText(th);
-                String val = safeTextWithNewLine(td);
-
-                if (!key.isBlank()) {
-                    data.put(key, val);
-                    rowCnt++;
-                }
-            }
-
-            result.put("success", true);
-            result.put("rowCount", rowCnt);
-            result.put("data", data);
-            result.put("message", "");
-            return result;
-
-        } catch (Exception e) {
-            log.error("[BiznoService.detail] error", e);
+        if (isBlockedHtml(html)) {
             result.put("error", 1);
-            result.put("success", false);
-            result.put("message", e.getMessage());
+            result.put("message", "bizno 상세 차단/제한 페이지 감지");
             return result;
         }
+
+        Element table = doc.selectFirst("table.table_guide01");
+        if (table == null) {
+            result.put("message", "상세 테이블(table.table_guide01)을 찾지 못했습니다.");
+            return result;
+        }
+
+        Map<String, String> data = new LinkedHashMap<>();
+        int rowCount = 0;
+
+        for (Element tr : table.select("tr")) {
+            String key = safeText(tr.selectFirst("th"));
+            String val = safeText(tr.selectFirst("td"));
+
+            if (!key.isBlank()) {
+                data.put(key, val);
+                rowCount++;
+            }
+        }
+
+        result.put("success", true);
+        result.put("rowCount", rowCount);
+        result.put("data", data);
+        result.put("message", "");
+        return result;
     }
 
     private boolean isBlockedHtml(String html) {
@@ -170,7 +228,6 @@ public class BiznoService {
         }
 
         String low = html.toLowerCase();
-
         String[] keywords = {
                 "접근이 차단",
                 "비정상적인 접근",
@@ -193,11 +250,6 @@ public class BiznoService {
             }
         }
 
-        if (html.length() < 1200) {
-            log.warn("[BiznoService] blocked suspicious html length: {}", html.length());
-            return true;
-        }
-
         return false;
     }
 
@@ -205,7 +257,6 @@ public class BiznoService {
         if (name == null) {
             return "";
         }
-
         String value = name.trim();
         value = value.replace("(주)", "");
         value = value.replace("주식회사", "");
@@ -216,20 +267,31 @@ public class BiznoService {
         return el == null ? "" : el.text().trim();
     }
 
-    private String safeTextWithNewLine(Element el) {
-        if (el == null) {
-            return "";
-        }
-        return el.text().trim();
+    private String safeAttr(Element el, String attr) {
+        return el == null ? "" : el.attr(attr).trim();
     }
 
     private boolean isOwnerMatch(String inputOwner, String scrapedOwner) {
-        String in = inputOwner == null ? "" : inputOwner.trim();
-        String sc = scrapedOwner == null ? "" : scrapedOwner.replace("*", "").trim();
-        return !in.isEmpty() && !sc.isEmpty() && in.contains(sc);
+        String in = normalizeOwner(inputOwner);
+        String sc = normalizeOwner(scrapedOwner);
+        if (in.isBlank() || sc.isBlank()) {
+            return false;
+        }
+        return in.equals(sc) || in.contains(sc) || sc.contains(in);
     }
 
-    private String getUserAgent() {
-        return "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36";
+    private String normalizeOwner(String value) {
+        if (value == null) {
+            return "";
+        }
+        return value.replace("*", "").replace(" ", "").trim();
+    }
+
+    private void sleepQuietly(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

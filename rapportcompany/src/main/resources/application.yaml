@@ -57,3 +57,12 @@ server:
     whitelabel:
       enabled: false    # Spring 기본 Whitelabel 에러 페이지 비활성화
   forward-headers-strategy: native  # 프록시 환경에서 헤더 처리 방식 설정
+
+
+app:
+  admin:
+    update-key: "gb7-admin-update-key-1234"
+
+bizno:
+  user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36
+  detail-delay-millis: 820

@@ -40,6 +40,18 @@ public class BiznoController {
         return apiKeyInfoService.detail(apiKey, userId, article, requestIp);
     }
 
+    @GetMapping("/search-and-detail")
+    public Map<String, Object> searchAndDetail(
+            @RequestHeader(name = "X-API-KEY") String apiKey,
+            @RequestParam(name = "userId", required = false, defaultValue = "") String userId,
+            @RequestParam(name = "companyName") String companyName,
+            @RequestParam(name = "ownerName", required = false, defaultValue = "") String ownerName,
+            HttpServletRequest request
+    ) {
+        String requestIp = getRequestIp(request);
+        return apiKeyInfoService.searchAndDetail(apiKey, userId, companyName, ownerName, requestIp);
+    }
+
     private String getRequestIp(HttpServletRequest request) {
         String xForwardedFor = request.getHeader("X-Forwarded-For");
         if (xForwardedFor != null && !xForwardedFor.trim().isEmpty() && !"unknown".equalsIgnoreCase(xForwardedFor)) {
