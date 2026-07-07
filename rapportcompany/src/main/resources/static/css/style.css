@@ -3600,12 +3600,6 @@ address {
 .rapport-sub-page.rapport-consulting-page .sub-visual-card {
     border-bottom-right-radius: 50px;
 }
-.rapport-sub-page.rapport-marketing-page .sub-visual-card {
-    transform: rotate(-1deg);
-}
-.rapport-sub-page.rapport-marketing-page .sub-visual-card > * {
-    transform: rotate(1deg);
-}
 .rapport-sub-page.rapport-works-page .sub-visual-card {
     background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(255,245,240,.92));
 }
@@ -4027,8 +4021,6 @@ address {
 }
 .rapport-sub-page.rapport-rapport-page .sub-visual-card { border-top-left-radius: 54px; }
 .rapport-sub-page.rapport-consulting-page .sub-visual-card { border-bottom-right-radius: 54px; }
-.rapport-sub-page.rapport-marketing-page .sub-visual-card { transform: rotate(-1deg); }
-.rapport-sub-page.rapport-marketing-page .sub-visual-card > * { transform: rotate(1deg); }
 .rapport-sub-page.rapport-works-page .sub-visual-card { border-top-right-radius: 54px; }
 .rapport-sub-page.rapport-guide-page .sub-visual-card { border-bottom-left-radius: 54px; }
 
