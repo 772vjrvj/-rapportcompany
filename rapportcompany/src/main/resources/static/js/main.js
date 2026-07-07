@@ -206,9 +206,9 @@ $(function () {
    - EMAILJS_TEMPLATE_ID
    ========================================================================== */
 $(function () {
-    const EMAILJS_PUBLIC_KEY = '';
-    const EMAILJS_SERVICE_ID = '';
-    const EMAILJS_TEMPLATE_ID = '';
+    const EMAILJS_PUBLIC_KEY = 'i0f5tUQQ9CppGGv9A';
+    const EMAILJS_SERVICE_ID = 'service_6olcliw';
+    const EMAILJS_TEMPLATE_ID = 'template_l7cgcdl';
     const $contactForm = $('#contactForm');
 
     if ($contactForm.length === 0) {
