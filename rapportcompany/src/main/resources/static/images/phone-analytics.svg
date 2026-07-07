@@ -28,7 +28,7 @@
 </g>
 <rect x="116" y="120" width="188" height="82" rx="24" fill="#ffffff" stroke="#D7EFFF"/>
 <text x="138" y="148" fill="#6D8699" font-family="Pretendard, Arial" font-size="15" font-weight="700">센터 운영 분석</text>
-<text x="138" y="180" fill="#12304B" font-family="Pretendard, Arial" font-size="28" font-weight="900">상담 → 등록 전환</text>
+<text x="138" y="180" fill="#12304B" font-family="Pretendard, Arial" font-size="18" font-weight="900">상담 → 등록 전환</text>
 <text x="138" y="196" fill="#2497D3" font-family="Pretendard, Arial" font-size="14" font-weight="800">이번 주 +12%</text>
 <rect x="116" y="226" width="188" height="182" rx="26" fill="#ffffff" stroke="#D7EFFF"/>
 <path d="M138 372L170 338L194 346L228 296L256 312L286 252" stroke="url(#line)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
