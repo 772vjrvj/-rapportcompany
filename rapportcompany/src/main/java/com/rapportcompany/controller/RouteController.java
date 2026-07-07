@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 public class RouteController {
-    @GetMapping({"/"})
-    public String index() {
-        return "index";
-    }
 
     @GetMapping({"/about"})
     public String about() {

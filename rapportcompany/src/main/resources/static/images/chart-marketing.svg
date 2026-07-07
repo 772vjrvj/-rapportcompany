@@ -1,0 +1,20 @@
+<svg width="620" height="290" viewBox="0 0 620 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="18" y="18" width="584" height="254" rx="32" fill="#FFFFFF" stroke="#E7E0FF"/>
+<text x="46" y="60" fill="#7261B6" font-family="Pretendard, Arial" font-size="12" font-weight="900">CONTENT FLOW</text>
+<text x="46" y="88" fill="#2E2465" font-family="Pretendard, Arial" font-size="21" font-weight="900">검색에서 문의까지</text>
+<path d="M76 194C132 146 170 165 216 126C266 84 320 130 370 98C426 64 478 90 530 58" stroke="#7B4EE8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M76 218H530" stroke="#EEE9FF" stroke-width="4" stroke-linecap="round"/>
+<path d="M76 172H530" stroke="#F5F2FF" stroke-width="2" stroke-linecap="round"/>
+<path d="M76 126H530" stroke="#F5F2FF" stroke-width="2" stroke-linecap="round"/>
+<circle cx="216" cy="126" r="7" fill="#2497D3"/>
+<circle cx="370" cy="98" r="7" fill="#38BFA6"/>
+<circle cx="530" cy="58" r="8" fill="#7B4EE8"/>
+<rect x="76" y="234" width="76" height="28" rx="14" fill="#F2EFFF"/>
+<text x="114" y="253" text-anchor="middle" fill="#5F55BB" font-family="Pretendard, Arial" font-size="11" font-weight="900">검색</text>
+<rect x="206" y="234" width="76" height="28" rx="14" fill="#F2EFFF"/>
+<text x="244" y="253" text-anchor="middle" fill="#5F55BB" font-family="Pretendard, Arial" font-size="11" font-weight="900">콘텐츠</text>
+<rect x="336" y="234" width="76" height="28" rx="14" fill="#F2EFFF"/>
+<text x="374" y="253" text-anchor="middle" fill="#5F55BB" font-family="Pretendard, Arial" font-size="11" font-weight="900">신뢰</text>
+<rect x="466" y="234" width="76" height="28" rx="14" fill="#F2EFFF"/>
+<text x="504" y="253" text-anchor="middle" fill="#5F55BB" font-family="Pretendard, Arial" font-size="11" font-weight="900">문의</text>
+</svg>

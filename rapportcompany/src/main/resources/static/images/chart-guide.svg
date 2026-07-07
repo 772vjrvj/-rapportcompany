@@ -1,0 +1,22 @@
+<svg width="620" height="290" viewBox="0 0 620 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="18" y="18" width="584" height="254" rx="32" fill="#FFFFFF" stroke="#FFECC4"/>
+<text x="46" y="60" fill="#A6791F" font-family="Pretendard, Arial" font-size="12" font-weight="900">PROJECT ROADMAP</text>
+<text x="46" y="88" fill="#553A10" font-family="Pretendard, Arial" font-size="21" font-weight="900">상담부터 실행까지</text>
+<path d="M88 166H532" stroke="#FFE7B6" stroke-width="10" stroke-linecap="round"/>
+<path d="M88 166H420" stroke="#D4921E" stroke-width="10" stroke-linecap="round"/>
+<circle cx="88" cy="166" r="25" fill="#D4921E"/>
+<circle cx="199" cy="166" r="25" fill="#D4921E"/>
+<circle cx="310" cy="166" r="25" fill="#D4921E"/>
+<circle cx="421" cy="166" r="25" fill="#FFF7E8" stroke="#D4921E" stroke-width="6"/>
+<circle cx="532" cy="166" r="25" fill="#FFF7E8" stroke="#FFE1A2" stroke-width="6"/>
+<text x="88" y="172" text-anchor="middle" fill="#FFFFFF" font-family="Pretendard, Arial" font-size="15" font-weight="900">1</text>
+<text x="199" y="172" text-anchor="middle" fill="#FFFFFF" font-family="Pretendard, Arial" font-size="15" font-weight="900">2</text>
+<text x="310" y="172" text-anchor="middle" fill="#FFFFFF" font-family="Pretendard, Arial" font-size="15" font-weight="900">3</text>
+<text x="421" y="172" text-anchor="middle" fill="#A6791F" font-family="Pretendard, Arial" font-size="15" font-weight="900">4</text>
+<text x="532" y="172" text-anchor="middle" fill="#A6791F" font-family="Pretendard, Arial" font-size="15" font-weight="900">5</text>
+<text x="88" y="214" text-anchor="middle" fill="#A6791F" font-family="Pretendard, Arial" font-size="11" font-weight="900">문의</text>
+<text x="199" y="214" text-anchor="middle" fill="#A6791F" font-family="Pretendard, Arial" font-size="11" font-weight="900">진단</text>
+<text x="310" y="214" text-anchor="middle" fill="#A6791F" font-family="Pretendard, Arial" font-size="11" font-weight="900">제안</text>
+<text x="421" y="214" text-anchor="middle" fill="#A6791F" font-family="Pretendard, Arial" font-size="11" font-weight="900">실행</text>
+<text x="532" y="214" text-anchor="middle" fill="#A6791F" font-family="Pretendard, Arial" font-size="11" font-weight="900">관리</text>
+</svg>

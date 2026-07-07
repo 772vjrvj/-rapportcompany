@@ -1,0 +1,19 @@
+<svg width="620" height="290" viewBox="0 0 620 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="18" y="18" width="584" height="254" rx="32" fill="#FFFFFF" stroke="#DCE8FF"/>
+<text x="46" y="60" fill="#5E72A6" font-family="Pretendard, Arial" font-size="12" font-weight="900">TRUST BALANCE</text>
+<text x="46" y="88" fill="#172D64" font-family="Pretendard, Arial" font-size="21" font-weight="900">전문성 · 상담 · 운영 균형</text>
+<circle cx="158" cy="168" r="58" fill="#EEF3FF"/>
+<path d="M158 110C189 110 214 135 214 166C214 198 189 223 158 223C126 223 101 198 101 166C101 150 108 135 121 124" stroke="#4169D6" stroke-width="16" stroke-linecap="round"/>
+<path d="M158 110C174 110 189 116 200 128" stroke="#7B4EE8" stroke-width="16" stroke-linecap="round"/>
+<text x="158" y="176" text-anchor="middle" fill="#172D64" font-family="Pretendard, Arial" font-size="24" font-weight="900">86%</text>
+<text x="158" y="246" text-anchor="middle" fill="#5E72A6" font-family="Pretendard, Arial" font-size="12" font-weight="800">신뢰 흐름</text>
+<text x="292" y="124" fill="#5E72A6" font-family="Pretendard, Arial" font-size="12" font-weight="800">치료 전문성</text>
+<rect x="292" y="136" width="246" height="13" rx="7" fill="#E9EEFF"/>
+<rect x="292" y="136" width="204" height="13" rx="7" fill="#4169D6"/>
+<text x="292" y="166" fill="#5E72A6" font-family="Pretendard, Arial" font-size="12" font-weight="800">보호자 상담</text>
+<rect x="292" y="178" width="246" height="13" rx="7" fill="#E9EEFF"/>
+<rect x="292" y="178" width="174" height="13" rx="7" fill="#7B4EE8"/>
+<text x="292" y="208" fill="#5E72A6" font-family="Pretendard, Arial" font-size="12" font-weight="800">운영 설계</text>
+<rect x="292" y="220" width="246" height="13" rx="7" fill="#E9EEFF"/>
+<rect x="292" y="220" width="220" height="13" rx="7" fill="#38BFA6"/>
+</svg>

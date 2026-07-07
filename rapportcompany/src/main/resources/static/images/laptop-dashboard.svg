@@ -1,0 +1,35 @@
+<svg width="760" height="520" viewBox="0 0 760 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="screen" x1="130" y1="58" x2="624" y2="390" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#EAF7FF"/>
+  </linearGradient>
+  <linearGradient id="accent" x1="150" y1="320" x2="598" y2="136" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#2497D3"/><stop offset="1" stop-color="#7F79E8"/>
+  </linearGradient>
+  <filter id="shadow" x="60" y="20" width="640" height="460" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feDropShadow dx="0" dy="26" stdDeviation="24" flood-color="#206FAB" flood-opacity="0.17"/>
+  </filter>
+</defs>
+<g filter="url(#shadow)">
+  <rect x="104" y="48" width="552" height="350" rx="34" fill="#173754"/>
+  <rect x="124" y="76" width="512" height="292" rx="24" fill="url(#screen)"/>
+  <rect x="78" y="398" width="604" height="44" rx="22" fill="#D9EBF5"/>
+  <rect x="274" y="398" width="212" height="12" rx="6" fill="#BFDDEC"/>
+</g>
+<text x="164" y="122" fill="#7893A6" font-family="Pretendard, Arial" font-size="15" font-weight="900">CENTER DASHBOARD</text>
+<text x="164" y="154" fill="#12304B" font-family="Pretendard, Arial" font-size="28" font-weight="900">문의 · 예약 · 등록 흐름</text>
+<rect x="164" y="188" width="148" height="118" rx="24" fill="#FFFFFF" stroke="#D7EFFF"/>
+<text x="188" y="222" fill="#6D8699" font-family="Pretendard, Arial" font-size="13" font-weight="800">오늘 문의</text>
+<text x="188" y="262" fill="#12304B" font-family="Pretendard, Arial" font-size="38" font-weight="900">24</text>
+<path d="M188 282H286" stroke="#2497D3" stroke-width="8" stroke-linecap="round"/>
+<path d="M188 294H254" stroke="#38BFA6" stroke-width="8" stroke-linecap="round"/>
+<rect x="334" y="188" width="254" height="118" rx="24" fill="#FFFFFF" stroke="#D7EFFF"/>
+<path d="M364 274C402 242 423 258 454 224C488 186 522 216 558 178" stroke="url(#accent)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="454" cy="224" r="7" fill="#2497D3"/>
+<circle cx="558" cy="178" r="8" fill="#7F79E8"/>
+<path d="M364 282H560" stroke="#D9EBF5" stroke-width="4" stroke-linecap="round"/>
+<path d="M364 240H560" stroke="#EEF7FB" stroke-width="2" stroke-linecap="round"/>
+<rect x="164" y="324" width="424" height="28" rx="14" fill="#FFFFFF" stroke="#D7EFFF"/>
+<circle cx="186" cy="338" r="6" fill="#1EC800"/>
+<text x="204" y="343" fill="#315E7E" font-family="Pretendard, Arial" font-size="13" font-weight="800">네이버 · 인스타그램 · 유튜브 · 카카오톡 채널 흐름 점검</text>
+</svg>

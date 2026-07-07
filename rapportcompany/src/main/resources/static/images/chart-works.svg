@@ -1,0 +1,20 @@
+<svg width="620" height="290" viewBox="0 0 620 290" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="18" y="18" width="584" height="254" rx="32" fill="#FFFFFF" stroke="#FFE1D6"/>
+<text x="46" y="60" fill="#A45C45" font-family="Pretendard, Arial" font-size="12" font-weight="900">PRODUCTION MIX</text>
+<text x="46" y="88" fill="#5C2E20" font-family="Pretendard, Arial" font-size="21" font-weight="900">제작물 구성 비율</text>
+<rect x="70" y="134" width="96" height="82" rx="20" fill="#FFF2ED"/>
+<rect x="200" y="112" width="96" height="104" rx="20" fill="#FFE8DF"/>
+<rect x="330" y="88" width="96" height="128" rx="20" fill="#FFD5C8"/>
+<rect x="460" y="126" width="96" height="90" rx="20" fill="#FFF2ED"/>
+<path d="M96 170H140" stroke="#E86943" stroke-width="9" stroke-linecap="round"/>
+<path d="M226 150H270" stroke="#E86943" stroke-width="9" stroke-linecap="round"/>
+<path d="M226 174H262" stroke="#2497D3" stroke-width="9" stroke-linecap="round"/>
+<path d="M356 128H400" stroke="#E86943" stroke-width="9" stroke-linecap="round"/>
+<path d="M356 154H394" stroke="#7F79E8" stroke-width="9" stroke-linecap="round"/>
+<path d="M356 180H388" stroke="#38BFA6" stroke-width="9" stroke-linecap="round"/>
+<path d="M486 164H530" stroke="#E86943" stroke-width="9" stroke-linecap="round"/>
+<text x="118" y="244" text-anchor="middle" fill="#A45C45" font-family="Pretendard, Arial" font-size="11" font-weight="900">웹</text>
+<text x="248" y="244" text-anchor="middle" fill="#A45C45" font-family="Pretendard, Arial" font-size="11" font-weight="900">리플렛</text>
+<text x="378" y="244" text-anchor="middle" fill="#A45C45" font-family="Pretendard, Arial" font-size="11" font-weight="900">카드뉴스</text>
+<text x="508" y="244" text-anchor="middle" fill="#A45C45" font-family="Pretendard, Arial" font-size="11" font-weight="900">영상</text>
+</svg>
